@@ -1,0 +1,134 @@
+\documentclass[uplatex,dvipdfmx,ja=standard, 12pt]{bxjsbook}
+\title{タイトル}
+\subtitle{英語タイトル}
+\author{名前}
+\date{平成31年 1月}
+
+% レイアウト
+\setpagelayout*{
+	headsep=6mm,
+	hmargin=20mm,
+	vscale=0.8,
+	vmarginratio=3:2
+}
+
+% 古いパッケージをチェック。
+% onlyamsmath は tikz の calc と衝突する。
+\RequirePackage[l2tabu, orthodox]{nag}
+%\usepackage[all, warning]{onlyamsmath}
+
+\usepackage{
+	subfiles,
+	amssymb,
+	amsthm,
+	amsmath,
+	color,
+	float,
+	physics,
+	siunitx,
+	slashed,
+	longtable,
+	autobreak,
+	here,
+	cite,
+	xr,
+	comment,
+	framed
+}
+\usepackage[utf8]{inputenc}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[version=3]{mhchem}
+%\usepackage[english]{babel}
+
+%　字下げされないときは、これ。
+%\usepackage{indentfirst}
+
+% できればPDF(ベクター)、JPEG(ラスター、写真)、PNG(ラスター、イラスト)にする。
+% どうしても　EPS　を使うときはこれ。
+%\usepackage{epstopdf}
+
+% ???
+%\usepackage{fancyhdr}
+%\usepackage{inothesis}
+
+% キャプション
+% subfigure, subfig は古いのでできれば使わない。
+\usepackage[labelformat=simple]{caption}
+\usepackage{subcaption}
+
+% リンクとしおり
+\usepackage[dvipdfmx, colorlinks=true, linkcolor=black, filecolor=black, urlcolor=blue]{hyperref}
+\usepackage{pxjahyper}
+
+% 参考文献
+\usepackage{natbib}
+\usepackage[nottoc,notlot,notlof]{tocbibind}	
+\bibliographystyle{unsrt}
+%\bibliography{main}
+
+% 表紙の設定 bxjsbook　のものを改変
+\makeatletter
+\renewcommand{\maketitle}{%
+	\begin{titlepage}%
+		\let\footnotesize\small
+		\let\footnoterule\relax
+		\let\footnote\thanks
+		\null\vfil
+		\vskip 55\p@
+		\begin{center}%
+			{\Huge \textbf{\@title} \par}%
+			\ifx\bxjs@subtitle\@undefined\else
+			\vskip5\p@
+			{\LARGE \textbf{\bxjs@subtitle}\par}
+			\fi
+			\vskip 3em%
+			\LARGE{\textbf{修士論文}\par}
+			\vskip 10em%
+			{\LARGE
+				\lineskip .75em
+				\begin{tabular}[t]{c}%
+					\@author
+				\end{tabular}\par}%
+			\vskip 1.5em
+			{\LARGE 東京大学大学院理学系研究科物理学専攻}
+			\vskip 1.5em
+			{\LARGE \@date \par}%
+		\end{center}%
+		\par
+		\@thanks\vfil\null
+	\end{titlepage}%
+	\setcounter{footnote}{0}%
+	\global\let\thanks\relax
+	\global\let\maketitle\relax
+	\global\let\@thanks\@empty
+	\global\let\@author\@empty
+	\global\let\@date\@empty
+	\global\let\@title\@empty
+	\global\let\title\relax
+	\global\let\author\relax
+	\global\let\date\relax
+	\global\let\and\relax
+	\bxjs@annihilate@subtitle
+}
+\makeatother
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+%	序論
+	\subfile{sample/sample}
+%	原理
+
+%	実験手法・結果
+
+%	結論
+
+%	付録
+	\appendix
+	\subfile{appendix/sample}
+%　　　参考文献
+	\bibliography{main}
+%	謝辞
+	\chapter*{謝辞}
+	\addcontentsline{toc}{chapter}{謝辞}
+\end{document}
